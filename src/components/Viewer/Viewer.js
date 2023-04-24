@@ -1,5 +1,4 @@
 import { Suspense, useState, useRef, useCallback, useEffect } from 'react';
-import { shallow } from 'zustand/shallow';
 
 import { Canvas, useFrame } from '@react-three/fiber';
 import {
@@ -17,11 +16,9 @@ import {
 
 import { BoxHelper } from 'three';
 
-import { Perf } from 'r3f-perf';
-import { DISC_DISTANCE, DISC_RADIUS, Model } from './Model';
+import { Model } from './Model';
 
 import { BASE_SIZE } from '../../config';
-import { create } from 'zustand';
 import { Camera } from './Camera';
 
 function Viewer() {
@@ -34,8 +31,6 @@ function Viewer() {
           <Scene />
           <Camera />
         </Suspense>
-
-        <Perf position="bottom-left" deepAnalyze={true} matrixUpdate={true} />
       </Canvas>
     </div>
   );
@@ -91,15 +86,7 @@ function Composition() {
 
   return (
     <group scale={1}>
-      <mesh ref={boxRef} visible={false} scale={2}>
-        <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={'#eee'} roughness={0.8} metalness={0.3} />
-      </mesh>
-
-      <mesh scale={0.5}>
-        <sphereGeometry args={[1, 32, 32]} />
-        <meshStandardMaterial color={'#eee'} roughness={0.8} metalness={0.3} />
-      </mesh>
+      <Model />
     </group>
   );
 }
